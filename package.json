@@ -3,11 +3,19 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
   "devDependencies": {
+    "@types/cheerio": "^0.22.17",
+    "@types/jest": "^25.2.1",
     "@types/node": "^13.11.1",
+    "jest": "^25.3.0",
+    "ts-jest": "^25.3.1",
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
     "tslib": "^1.11.1"
   }
 }

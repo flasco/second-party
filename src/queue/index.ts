@@ -1,7 +1,15 @@
-class Queue {
+import { delay } from '../utils';
+
+interface IPayload<T> {
+  id: number;
+  content: T;
+  isWorking?: number;
+}
+
+class Queue<T = any> {
   _id = 0;
-  _preArr = [] as any[];
-  _workArr = [] as any[];
+  _preArr: IPayload<T>[] = [];
+  _workArr: IPayload<T>[] = [];
   _inProcess = 0;
   _concurrent: number;
 
@@ -9,9 +17,9 @@ class Queue {
     this._concurrent = concurrent;
   }
 
-  _workPush = () => {
+  _workPush() {
     while (this._preArr.length > 0 && this._workArr.length < this._concurrent) {
-      const item = this._preArr.shift();
+      const item = this._preArr.shift() as IPayload<T>;
       this._workArr.push(item);
     }
 
@@ -19,9 +27,9 @@ class Queue {
 
     if (totalLen < 1 && this._inProcess < 1) this.drain();
     else this._workRun();
-  };
+  }
 
-  _workRun = async () => {
+  async _workRun() {
     const workLen = this._workArr.length;
 
     for (let i = 0; i < workLen; i++) {
@@ -37,31 +45,29 @@ class Queue {
         this._workPush();
       }
     }
-  };
+  }
 
-  drain = () => {
+  drain() {
     console.log('empty...');
-  };
+  }
 
-  push = (item) => {
+  push(item) {
     this._preArr.push({
       id: this._id++,
       content: item,
     });
     this._workArr.length < this._concurrent && this._workPush();
-  };
+  }
 
-  kill = () => {
+  kill() {
     this._workArr = [];
     this._preArr = [];
-  };
+  }
 
-  work = async (item) => {
-    return new Promise((resolve) => {
-      console.log('default work, plz overload it', item);
-      setTimeout(resolve, Math.round(Math.random() * 5000));
-    });
-  };
+  async work(item) {
+    await delay(Math.round(Math.random() * 5000));
+    console.log('default work, plz overload it', item);
+  }
 }
 
-export = Queue;
+export default Queue;
