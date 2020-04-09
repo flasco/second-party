@@ -17,7 +17,7 @@ class Queue<T = any> {
     this.#concurrent = concurrent;
   }
 
-  _workPush() {
+  _workPush = () => {
     while (this.#preArr.length > 0 && this.#workArr.length < this.#concurrent) {
       const item = this.#preArr.shift() as IPayload<T>;
       this.#workArr.push(item);
@@ -29,7 +29,7 @@ class Queue<T = any> {
     else this._workRun();
   }
 
-  async _workRun() {
+  _workRun = async () => {
     const workLen = this.#workArr.length;
 
     for (let i = 0; i < workLen; i++) {
@@ -47,11 +47,11 @@ class Queue<T = any> {
     }
   }
 
-  drain() {
+  drain = () => {
     console.log('empty...');
   }
 
-  push(item) {
+  push = (item) => {
     this.#preArr.push({
       id: this.#id++,
       content: item,
@@ -59,12 +59,12 @@ class Queue<T = any> {
     this.#workArr.length < this.#concurrent && this._workPush();
   }
 
-  kill() {
+  kill = () => {
     this.#workArr = [];
     this.#preArr = [];
   }
 
-  async work(item) {
+  work = async (item: T) => {
     await delay(Math.round(Math.random() * 5000));
     console.log('default work, plz overload it', item);
   }
