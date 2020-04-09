@@ -34,7 +34,7 @@ class Queue<T = any> {
 
     for (let i = 0; i < workLen; i++) {
       const current = this.#workArr[i];
-      if (current && current.isWorking !== 1) {
+      if (current.isWorking !== 1) {
         current.isWorking = 1;
         this.#inProcess++;
         await this.work(current.content);
