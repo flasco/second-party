@@ -1,0 +1,13 @@
+{
+  "name": "second-party",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^13.11.1",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "tslib": "^1.11.1"
+  }
+}
