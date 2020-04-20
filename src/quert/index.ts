@@ -21,17 +21,17 @@ function formatX(inst, $: Cheerio) {
   switch (words[0]) {
     case 'class': {
       const rx = $.find('.' + words[1]);
-      if (words[2] != null) return rx.eq(words[3] || 0);
+      if (words[2] != null) return rx.eq(words?.[3] ?? 0);
       return rx;
     }
     case 'id': {
       const rx = $.find('#' + words[1]);
-      if (words[2] != null) return rx.eq(words[3] || 0);
+      if (words[2] != null) return rx.eq(words?.[3] ?? 0);
       return rx;
     }
     case 'tag': {
       const rx = $.find(words[1]);
-      if (words[2] != null) return rx.eq(words[3] || 0);
+      if (words[2] != null) return rx.eq(words?.[3] ?? 0);
       return rx;
     }
   }
